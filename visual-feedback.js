@@ -3,8 +3,8 @@ var freqS = 196;
 var freqD = 220;
 var freqF = 246;
 
+var playingA, playingS, playingD, playingF;
 var oscA, oscS, oscD, oscF;
-var storedKey;
 
 var playing = false;
 
@@ -40,16 +40,16 @@ function setup() {
 function draw() {
   noStroke();
   if (playing) {
-    if (storedKey == 'A') {
+    if (playingA) {
     	fill(0, 255, 255);
       rect(0,0,width/2,height/2);
-  	} else if (storedKey == 'S') {
+  	} else if (playingS) {
       fill(0, 0, 255);
       rect(width/2, 0, width/2, height/2);
-    } else if (storedKey == 'D') {
+    } else if (playingD) {
       fill(255, 0, 0);
       rect(0, height/2, width/2, height/2);
-    } else if (storedKey == 'F') {
+    } else if (playingF) {
       fill(0, 255, 0);
       rect(width/2, height/2, width/2, height/2);
     }
@@ -65,16 +65,16 @@ function keyPressed() {
   var osc;
   if (key == 'A') {
     osc = oscA;
-    storedKey = 'A';
+    playingA = true;
   } else if (key == 'S') {
     osc = oscS;
-    storedKey = 'S';
+    playingS = true;
   } else if (key == 'D') {
     osc = oscD;
-    storedKey = 'D';
+    playingD = true;
   } else if (key == 'F') {
     osc = oscF;
-    storedKey = 'F';
+    playingF = true;
   }
   if (osc) {
     osc.amp(0.5, 0.1);
@@ -87,12 +87,16 @@ function keyReleased() {
   var osc;
   if (key == 'A') {
     osc = oscA;
+    playingA = false;
   } else if (key == 'S') {
     osc = oscS;
+    playingS = false;
   } else if (key == 'D') {
     osc = oscD;
+    playingD = false;
   } else if (key == 'F') {
     osc = oscF;
+    playingF = false;
   }
   if (osc) {
     osc.amp(0, 0.5);
